@@ -11,11 +11,11 @@ Vue.use(VueMaterial);
 const app = new Vue({
     el: '#app',
     data: {
-        currentRoute: window.location.pathname
+        currentRoute: window.location.pathname.split('/')[1]
     },
     computed: {
         ViewComponent () {
-            const matchingView = routes[this.currentRoute];
+            const matchingView = routes['/' + this.currentRoute];
             return matchingView
                 ? require('./pages/' + matchingView + '.vue')
                 : require('./pages/404.vue')
@@ -27,5 +27,5 @@ const app = new Vue({
 });
 
 window.addEventListener('popstate', () => {
-    app.currentRoute = window.location.pathname
+    app.currentRoute = window.location.pathname.split('/')[1]
 });

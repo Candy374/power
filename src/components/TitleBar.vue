@@ -47,20 +47,8 @@
         border-bottom: 1px solid #000;
         display: flex;
         justify-content: space-between;
-        padding: 1em;
         align-items: center;
-    }
-    ul {
-        margin: 0;
-        padding: 0;
-    }
-
-    li {
-        list-style: none;
-    }
-
-    a {
-        text-decoration: none;
+        padding: 15px;
     }
 
     .author-card {

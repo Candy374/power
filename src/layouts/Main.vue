@@ -2,7 +2,7 @@
  * Created by huangling on 09/06/2018.
  */
 <template>
- <div class="container">
+ <div class="app-container">
   <title-bar></title-bar>
   <slot></slot>
  </div>
@@ -17,11 +17,29 @@
     }
 </script>
 
-<style scoped>
- .container {
+<style>
+ .app-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 15px 30px;
-  background: #f9f7f5;
+  background: #f0f0f0;
+  height: 100vh;
+ }
+
+ body {
+  margin: 0;
+  font-family: "Helvetica Neue For Number", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Hiragino Sans GB", "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Helvetica, Arial, sans-serif;
+ }
+
+ ul {
+  margin: 0;
+  padding: 0;
+ }
+
+ li {
+  list-style: none;
+ }
+
+ a {
+  text-decoration: none;
  }
 </style>

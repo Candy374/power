@@ -28,7 +28,7 @@ export default {
     methods: {
         go (event) {
             event.preventDefault();
-            this.$root.currentRoute = this.href;
+            this.$root.currentRoute = this.href.split('/')[1];
             window.history.pushState(
                 null,
                 routes[this.href],

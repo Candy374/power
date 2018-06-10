@@ -3,15 +3,40 @@
 */
 <template>
     <main-layout>
-        <p>Machine page</p>
+        <div class="container">
+            <left-menu :items="items">
+
+            </left-menu>
+            <p>Machine page</p>
+        </div>
     </main-layout>
 </template>
 
 <script>
-    import MainLayout from '../layouts/Main.vue'
+    import MainLayout from '../layouts/Main.vue';
+    import LeftMenu from '../components/LeftMenu.vue';
     export default {
         components: {
-            MainLayout
-        }
+            MainLayout,
+            LeftMenu
+        },
+        data: () => ({
+            items: [{
+                text: '设备列表',
+                href: '/machine/list'
+            }, {
+                text: '设备码',
+                href: '/machine/code'
+            }, {
+                text: '设备类型',
+                href: '/machine/type'
+            }]
+        })
     }
 </script>
+
+<style>
+    .container {
+        display: flex;
+    }
+</style>
