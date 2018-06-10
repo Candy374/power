@@ -3,11 +3,9 @@
 */
 <template>
     <div class="left-menu">
-        <ul>
-            <li v-for="item in items">
-                <router-link :to="item.href" class="link">{{item.text}}</router-link>
-            </li>
-        </ul>
+        <div v-for="item in items" class="link">
+            <router-link :to="item.href">{{item.text}}</router-link>
+        </div>
     </div>
 </template>
 
@@ -19,35 +17,32 @@
                 required: true
             }
         },
-        data: () => ({
-            active: ''
-        }),
-        methods: {
-            go (event) {
-                event.preventDefault();
-                this.$root.currentRoute = this.href;
-                window.history.pushState(
-                    null,
-                    routes[this.href],
-                    this.href
-                )
-            }
-        },
     }
 </script>
 
 <style scoped>
     .left-menu {
-        width: 200px;
-        padding: 10px;
+        width: 120px;
+        border-right: 1px solid #ccc;
     }
 
     .link {
-        padding: 0 1em;
-        color: #000;
+        margin: 1em;
+        text-align: center;
     }
 
-    .router-link-active {
-        color: cornflowerblue;
+    .link a {
+        color: #888;
+        padding-bottom: 2px;
+        border-bottom: 2px solid transparent;
+    }
+
+    .link:hover a {
+        border-color: cornflowerblue;
+    }
+
+    a.router-link-active {
+        color: #333;
+        border-color: cornflowerblue;
     }
 </style>

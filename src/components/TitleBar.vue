@@ -36,7 +36,7 @@
 
 <style scoped>
     .title-bar {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid #ddd;
         display: flex;
         justify-content: space-between;
         align-items: center;

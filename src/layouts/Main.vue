@@ -21,8 +21,9 @@
  .app-container {
   max-width: 1200px;
   margin: 0 auto;
-  background: #f0f0f0;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
  }
 
  body {

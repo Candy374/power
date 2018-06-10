@@ -3,9 +3,7 @@
 */
 <template>
     <div class="container">
-        <left-menu :items="items">
-
-        </left-menu>
+        <left-menu :items="items"></left-menu>
         <router-view></router-view>
     </div>
 </template>
@@ -34,5 +32,6 @@
 <style>
     .container {
         display: flex;
+        flex: 1;
     }
 </style>
