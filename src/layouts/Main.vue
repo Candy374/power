@@ -4,7 +4,7 @@
 <template>
  <div class="app-container">
   <title-bar></title-bar>
-  <slot></slot>
+  <router-view></router-view>
  </div>
 </template>
 

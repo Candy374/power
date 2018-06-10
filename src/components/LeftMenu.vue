@@ -5,18 +5,14 @@
     <div class="left-menu">
         <ul>
             <li v-for="item in items">
-                <v-link :href="item.href" >{{item.text}}</v-link>
+                <router-link :to="item.href" class="link">{{item.text}}</router-link>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
-    import VLink from '../components/VLink.vue'
     export default {
-        components: {
-            VLink
-        },
         props: {
             items: {
                 type: Array,
@@ -44,5 +40,14 @@
     .left-menu {
         width: 200px;
         padding: 10px;
+    }
+
+    .link {
+        padding: 0 1em;
+        color: #000;
+    }
+
+    .router-link-active {
+        color: cornflowerblue;
     }
 </style>

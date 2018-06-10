@@ -3,32 +3,24 @@
 */
 <template>
     <div class="title-bar">
-        <ul>
-            <li>
-                <v-link href="/machine">设备管理</v-link>
-                <v-link href="/customer">客户</v-link>
-                <v-link href="/log">日志</v-link>
-            </li>
-        </ul>
-        <ul>
-            <li>
-                <div class="author-card">
-                    <div class="author-image"><img :src="img" :alt="name"></div>
-                    <div class="author-card-info">
-                        <span>{{ name }}</span>
-                    </div>
+        <div>
+            <router-link to="/machine" class="link">设备管理</router-link>
+            <router-link to="/customer" class="link">客户</router-link>
+            <router-link to="/log" class="link">日志</router-link>
+        </div>
+        <div>
+            <div class="author-card">
+                <div class="author-image"><img :src="img" :alt="name"></div>
+                <div class="author-card-info">
+                    <span>{{ name }}</span>
                 </div>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import VLink from '../components/VLink.vue'
     export default {
-        components: {
-            VLink
-        },
         data: () => ({
             toggleCard: false,
             img: '/src/img/Candy.jpeg',
@@ -68,5 +60,14 @@
         border: 2px solid #fff;
         border-radius: 50%;
         box-shadow: 0 0 3px #000;
+    }
+
+    .link {
+        padding: 0 1em;
+        color: #000;
+    }
+
+    .router-link-active {
+        color: cornflowerblue;
     }
 </style>
