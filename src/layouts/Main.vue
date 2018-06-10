@@ -3,29 +3,23 @@
  */
 <template>
  <div class="container">
-  <ul>
-   <li>
-    <v-link href="/">Home</v-link>
-    <v-link href="/about">About</v-link>
-   </li>
-  </ul>
-
+  <title-bar></title-bar>
   <slot></slot>
  </div>
 </template>
 
 <script>
-    import VLink from '../components/VLink.vue'
+    import TitleBar from '../components/TitleBar.vue'
     export default {
         components: {
-            VLink
+            TitleBar
         }
     }
 </script>
 
 <style scoped>
  .container {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 15px 30px;
   background: #f9f7f5;

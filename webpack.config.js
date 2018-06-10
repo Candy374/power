@@ -18,13 +18,24 @@ module.exports = {
                 use: {
                     loader: 'vue-loader'
                 }
-            },
-            {
+            }, {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader'
                 }
+            }, {
+                // for css
+                test: /\.css$/,
+                use: ['css-loader']
+            }, {
+                test: /\.(png|jpg|svg|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[path][name].[ext]',
+                    }
+                }]
             }
         ]
     },

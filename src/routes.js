@@ -3,5 +3,7 @@
  */
 export default {
     '/': 'Home',
-    '/about': 'About'
+    '/customer': 'Customer',
+    '/machine': 'Machine',
+    '/log': 'Log',
 }

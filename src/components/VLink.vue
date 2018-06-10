@@ -4,7 +4,7 @@
 <template>
 <a
 v-bind:href="href"
-v-bind:class="{ active: isActive }"
+v-bind:class="{ active: isActive, link: true }"
 v-on:click="go"
     >
     <slot></slot>
@@ -27,8 +27,8 @@ export default {
     },
     methods: {
         go (event) {
-            event.preventDefault()
-            this.$root.currentRoute = this.href
+            event.preventDefault();
+            this.$root.currentRoute = this.href;
             window.history.pushState(
                 null,
                 routes[this.href],
@@ -40,7 +40,12 @@ export default {
 </script>
 
 <style scoped>
-.active {
-    color: cornflowerblue;
-}
+    .link {
+        padding: 0 1em;
+        color: #000;
+    }
+
+    .active {
+        color: cornflowerblue;
+    }
 </style>
