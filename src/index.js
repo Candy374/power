@@ -14,6 +14,7 @@ import MachineType from './pages/machine/Type.vue';
 import Log from './pages/Log.vue';
 import Home from './pages/Home.vue';
 import Main from './layouts/Main.vue';
+import NotFound from './pages/404.vue';
 Vue.use(VueRouter);
 Vue.use(VueMaterial);
 
@@ -22,7 +23,6 @@ const router = new VueRouter({
         {
             path: '/', component: Main,
             children: [
-                {path: '', component: Home},
                 {path: 'log', component: Log},
                 {
                     path: 'machine', component: Machine,
@@ -30,10 +30,15 @@ const router = new VueRouter({
                         {path: 'list', component: MachineList},
                         {path: 'code', component: MachineCode},
                         {path: 'type', component: MachineType},
+                        {path: '',  redirect: 'list'},
+                        {path: '*', redirect: 'list'},
                     ]
                 },
                 {path: 'customer', component: Customer},
+                {path: '*', component: Home},
             ]
+        }, {
+            path: '*', component: NotFound,
         }
     ]
 });
