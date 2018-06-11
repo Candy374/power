@@ -25,9 +25,15 @@ module.exports = {
                     loader: 'babel-loader'
                 }
             }, {
-                // for css
                 test: /\.css$/,
                 use: ['css-loader']
+            }, {
+                test: /\.scss$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    'sass-loader'
+                ]
             }, {
                 test: /\.(png|jpg|svg|gif)$/,
                 use: [{
@@ -40,8 +46,9 @@ module.exports = {
         ]
     },
     resolve: {
+        extensions: ['.js', '.vue', '.scss'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
         }
     },
     devServer: {
@@ -49,7 +56,7 @@ module.exports = {
         noInfo: true
     },
     devtool: '#eval-source-map'
-}
+};
 
 if (process.env.NODE_ENV === 'production') {
     module.exports.devtool = '#source-map'

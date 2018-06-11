@@ -34,7 +34,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .title-bar {
         border-bottom: 1px solid #ddd;
         display: flex;

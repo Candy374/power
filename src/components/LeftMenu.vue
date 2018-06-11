@@ -20,7 +20,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
     .left-menu {
         width: 120px;
         border-right: 1px solid #ccc;

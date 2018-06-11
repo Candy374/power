@@ -17,7 +17,7 @@
     }
 </script>
 
-<style>
+<style lang="scss">
  .app-container {
   max-width: 1200px;
   margin: 0 auto;

@@ -29,7 +29,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .container {
         display: flex;
         flex: 1;

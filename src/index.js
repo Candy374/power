@@ -4,7 +4,6 @@
 
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
-import 'vue-material/dist/vue-material.min.css';
 import VueRouter from 'vue-router';
 import Customer from './pages/Customer.vue';
 import Machine from './pages/Machine.vue';
