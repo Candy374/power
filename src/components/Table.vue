@@ -3,18 +3,17 @@
 */
 <template>
     <div>
-        <md-table md-card>
-            <h1 class="md-title">{{title}}</h1>
-            <md-table-row >
-                <md-table-head v-for="header in columns" :key="header.id">
-                    {{header.title}}
-                </md-table-head>
-            </md-table-row>
+        <md-table v-model="dataSource" md-card>
+            <md-table-toolbar>
+                <h1 class="md-title">Users</h1>
+            </md-table-toolbar>
 
-            <md-table-row v-for="row in dataSource" :key="row.dataIndex || row.id">
-                <md-table-cell v-for="col in columns" :key="col.dataIndex ? row[col.dataIndex] : row.id">
-                    {{col.render ? col.render(row[col.dataIndex], row) : row[col.dataIndex]}}
-                </md-table-cell>
+            <md-table-row slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="ID" md-sort-by="id" md-numeric>{{ item.id }}</md-table-cell>
+                <md-table-cell md-label="Name" md-sort-by="name">{{ item.name }}</md-table-cell>
+                <md-table-cell md-label="Email" md-sort-by="email">{{ item.email }}</md-table-cell>
+                <md-table-cell md-label="Gender" md-sort-by="gender">{{ item.gender }}</md-table-cell>
+                <md-table-cell md-label="Job Title" md-sort-by="title">{{ item.title }}</md-table-cell>
             </md-table-row>
         </md-table>
     </div>

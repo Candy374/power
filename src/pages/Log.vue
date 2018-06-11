@@ -2,28 +2,24 @@
 * Created by huangling on 09/06/2018.
 */
 <template>
-        <log-table :columns="columns" :dataSource="rows">
+    <div>
+        <md-table v-model="rows" md-card>
+            <md-table-toolbar>
+                <h1 class="md-title">Logs</h1>
+            </md-table-toolbar>
 
-        </log-table>
+            <md-table-row slot="md-table-row" slot-scope="{ item }">
+                <md-table-cell md-label="时间" md-sort-by="time" md-numeric>{{ item.time }}</md-table-cell>
+                <md-table-cell md-label="等级" md-sort-by="level">{{ item.level }}</md-table-cell>
+                <md-table-cell md-label="内容" md-sort-by="content">{{ item.content }}</md-table-cell>
+            </md-table-row>
+        </md-table>
+    </div>
 </template>
 
 <script>
-    import LogTable from '../components/Table.vue';
     export default {
-        components: {
-            LogTable
-        },
         data: () => ({
-            columns: [{
-                title: '时间',
-                dataIndex: 'time'
-            }, {
-                title: '等级',
-                dataIndex: 'level'
-            }, {
-                title: '内容',
-                dataIndex: 'content'
-            }],
             rows: [{
                 time: '2018-08-09',
                 level: 'ERROR',
