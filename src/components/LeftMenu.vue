@@ -39,6 +39,7 @@
 
     .link:hover a {
         border-color: cornflowerblue;
+        text-decoration: none;
     }
 
     a.router-link-active {
