@@ -12,6 +12,9 @@ const Service = mock ? Mock : {
     getCustomer: () => {
 
     },
+    getMachine: () => {
+
+    }
 };
 
 export default Service;

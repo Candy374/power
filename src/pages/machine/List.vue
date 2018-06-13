@@ -3,10 +3,21 @@
 */
 <template>
     <div class="container">
-        <p-table :loading="loading" :dataSource="rows"
-                 :columns="columns"
+        <p-table
+            title="机器列表"
+            :loading="loading"
+            :dataSource="rows"
+            :columns="columns"
         >
-
+            <template slot="name" slot-scope="scope">
+                <router-link to="/log">{{scope.slotValue}}</router-link>
+            </template>
+            <template slot="code" slot-scope="scope">
+                <router-link to="/machine/code">{{scope.slotValue}}</router-link>
+            </template>
+            <template slot="customer" slot-scope="scope">
+                <router-link to="/customer">{{scope.slotValue}}</router-link>
+            </template>
         </p-table>
     </div>
 </template>
@@ -19,18 +30,23 @@
         components: {
             PTable
         },
-        data: () => ({
-            rows: [],
-            columns: [
-                {title: '客户名', dataIndex: 'name'},
-                {title: '公司名', dataIndex: 'company'},
-                {title: '地址', dataIndex: 'address'},
-            ],
-            loading: true
-        }),
+        data: function () {
+            const vm = this;
+            return {
+                rows: [],
+                columns: [
+                    {title: '机器名', dataIndex: 'name', slot: true },
+                    {title: '设备码', dataIndex: 'code', slot: true},
+                    {title: '客户名', dataIndex: 'customer', slot: true},
+                    {title: '状态', dataIndex: 'status'},
+                    {title: '类型', dataIndex: 'type'},
+                ],
+                loading: true
+            }
+        },
         created: function () {
             const vm = this;
-            Service.getCustomer().then((data) => {
+            Service.getMachine().then((data) => {
                 vm.rows = data;
                 vm.loading = false;
             });

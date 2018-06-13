@@ -30,3 +30,15 @@ export const getCustomer = () => mockService([{
     id: '2',
     name: 'Candy',
 }]);
+
+export const getMachine = () => mockService([{
+    name: 'XXXX01',
+    code: 'THSOQF',
+    customer: 'Jianghong',
+    status: 'NORMAL'
+}, {
+    name: 'XXXX02',
+    code: 'THSODFEF',
+    customer: 'Jianghong',
+    status: 'ERROR'
+}]);
