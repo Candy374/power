@@ -1,0 +1,6 @@
+site_name: power management demo
+repo_url: https://github.com/Candy374/power
+
+pages:
+- index:
+  - '404': '404.html'
