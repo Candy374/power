@@ -3,25 +3,38 @@
 */
 <template>
     <div class="container">
-        <md-table v-model="searched" md-card
-                  :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" :md-sort-fn="customSort"
+        <div class="title">
+            <el-input v-model="search" class="input-with-select" style="width: 40%">
+                <el-button slot="append" icon="el-icon-search" @click="searchOnTable"></el-button>
+            </el-input>
+        </div>
+        <el-table :data="searched" style="width: 100%" stripe
+                  :default-sort = "{prop: 'time', order: 'descending'}"
+                  v-loading="loading"
         >
-            <md-table-toolbar>
-                <h1 class="md-title">Logs</h1>
-                <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="请输入" v-model="search" @input="searchOnTable" />
-                </md-field>
-            </md-table-toolbar>
-
-            <div v-if="loading" :class="{loading: loading}">loading...</div>
-            <md-table-row slot="md-table-row" slot-scope="{ item }"
-                          md-selectable="multiple" md-auto-select
-            >
-                <md-table-cell md-label="时间" md-sort-by="time" md-numeric>{{ item.time }}</md-table-cell>
-                <md-table-cell md-label="等级" md-sort-by="level">{{ item.level }}</md-table-cell>
-                <md-table-cell md-label="内容" md-sort-by="content">{{ item.content }}</md-table-cell>
-            </md-table-row>
-        </md-table>
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column prop="time" label="时间" sortable  width="180">
+                <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.time }}</span>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    prop="level"
+                    label="等级"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="content"
+                    label="内容" >
+            </el-table-column>
+        </el-table>
+        <el-pagination
+                background
+                layout="prev, pager, next"
+                style="float: right"
+                :total="searched.length">
+        </el-pagination>
     </div>
 </template>
 
@@ -39,7 +52,7 @@
             search: '',
             searched: [],
             rows: [],
-            loading: true
+            loading: true,
         }),
         created: function () {
             const vm = this;
@@ -61,7 +74,8 @@
                     return b[sortBy].localeCompare(a[sortBy])
                 })
             },
-            searchOnTable (text) {
+            searchOnTable () {
+                const text = this.search;
                 if (text) {
                     this.searched = this.rows.filter(r => toLower(r.content).indexOf(toLower(text)) > -1)
                 } else {
@@ -73,11 +87,12 @@
 </script>
 <style scoped="">
     .container {
-        padding: 30px;
+        margin: 15px 0;
     }
 
-    .loading {
-        padding: 20px;
-        text-align: center;
+    .title {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
     }
 </style>

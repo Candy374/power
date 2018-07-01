@@ -2,11 +2,11 @@
 * Created by huangling on 10/06/2018.
 */
 <template>
-    <div class="title-bar">
-        <div>
-            <router-link to="/machine" class="link">设备管理</router-link>
-            <router-link to="/customer" class="link">客户</router-link>
-            <router-link to="/log" class="link">日志</router-link>
+    <el-menu router class="title-bar">
+        <div class="left">
+            <el-menu-item v-for="item in items" :index="item.to">
+                {{item.text}}
+            </el-menu-item>
         </div>
         <div>
             <div class="author-card">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </el-menu>
 </template>
 
 <script>
@@ -24,7 +24,12 @@
         data: () => ({
             toggleCard: false,
             img: '/src/img/Candy.jpeg',
-            name: 'candy'
+            name: 'candy',
+            items: [
+                {to: '/machine', text: '设备管理'},
+                {to: '/customer', text: '客户'},
+                {to: '/log', text: '日志'}
+            ]
         }),
         methods: {
             toggle () {
@@ -40,7 +45,15 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px;
+        padding-right: 15px;
+
+        &:before, &:after {
+            content: none;
+        }
+    }
+
+    .left {
+        display: flex;
     }
 
     .author-card {

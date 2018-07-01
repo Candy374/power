@@ -3,50 +3,55 @@
 */
 <template>
     <div class="container">
-        <p-table
-                title="设备码列表"
-                :loading="loading"
-                :dataSource="rows"
-                :columns="columns"
+        <el-popover
+                ref="popover"
+                placement="right"
+                width="400"
+                trigger="click">
+            <div>
+                自动生成
+                <el-input-number v-model="number" :min="1"></el-input-number>
+                个机器码
+            </div>
+            <div>
+                <el-button @click="closePopover">取消</el-button>
+                <el-button type="primary" @click="generateCode">确定</el-button>
+            </div>
+
+            <el-button slot="reference">生成机器码</el-button>
+        </el-popover>
+
+        <el-table :data="rows" style="width: 100%" stripe
+                  v-loading="loading"
         >
-            <template slot="title">
-                <md-button
-                        class="md-raised md-primary"
-                        @click="tooltipActive = !tooltipActive"
-                >
-                    生成机器码
-                    <md-tooltip :md-active.sync="tooltipActive">
-                        <md-card>
-                            <md-card-content>
-                                自动生成
-                                <md-input type="number">{{number}}</md-input>
-                                个机器码
-                            </md-card-content>
-                            <md-card-actions>
-                                <md-button>取消</md-button>
-                                <md-button>确定</md-button>
-                            </md-card-actions>
-                        </md-card>
-
-                    </md-tooltip>
-                </md-button>
-
-            </template>
-            <template slot="machine" slot-scope="scope">
-                <router-link to="/machine/list">{{scope.slotValue}}</router-link>
-            </template>
-        </p-table>
+            <el-table-column
+                    prop="code"
+                    label="设备码" >
+            </el-table-column>
+            <el-table-column
+                    prop="machine"
+                    label="机器名">
+                <template slot-scope="scope">
+                    <router-link to="/machine/list">{{scope.row.machine}}</router-link>
+                </template>
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
-    import PTable from '../../components/Table.vue';
     import Service from '../../actions/index';
 
+    const getRandomLetter = () => String.fromCharCode(Math.floor(Math.random() * (120 - 65)) + 65);
+    const getRandomCode = () => {
+        let letter = '';
+        for (let i = 0; i< 6; i++) {
+            letter += getRandomLetter();
+        }
+        return letter;
+    };
+
     export default {
-        components: {
-            PTable
-        },
         data: function () {
             return {
                 number: 0,
@@ -54,7 +59,7 @@
                 rows: [],
                 columns: [
                     {title: '设备码', dataIndex: 'code'},
-                    {title: '机器名', dataIndex: 'machine', slot: true },
+                    {title: '机器名', dataIndex: 'machine' },
                 ],
                 loading: true
             }
@@ -66,11 +71,35 @@
                 vm.loading = false;
             });
         },
+        methods: {
+            generateCode: function () {
+                const newRows = [];
+                for (let i = 0; i < this.number; i++) {
+                    newRows.push({
+                        code: getRandomCode(),
+                        machine: 'XXXX0' + i
+                    });
+                }
+
+                this.rows = this.rows.concat(newRows);
+                this.closePopover();
+            },
+            closePopover: function () {
+                this.$refs.popover.doClose()
+            }
+        }
     }
 </script>
 
 <style scoped="">
     .container {
         flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .el-table {
+        max-height: 500px;
+        overflow: auto;
     }
 </style>

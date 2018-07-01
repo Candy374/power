@@ -4,6 +4,7 @@
 
 import Vue from 'vue';
 import VueMaterial from 'vue-material';
+import ElementUI from 'element-ui';
 import VueRouter from 'vue-router';
 import Customer from './pages/Customer.vue';
 import Machine from './pages/Machine.vue';
@@ -14,8 +15,9 @@ import Log from './pages/Log.vue';
 import Home from './pages/Home.vue';
 import Main from './layouts/Main.vue';
 import NotFound from './pages/404.vue';
-Vue.use(VueRouter);
 Vue.use(VueMaterial);
+Vue.use(VueRouter);
+Vue.use(ElementUI);
 
 const router = new VueRouter({
     routes: [

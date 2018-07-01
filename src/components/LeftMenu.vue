@@ -3,9 +3,11 @@
 */
 <template>
     <div class="left-menu">
-        <div v-for="item in items" class="link">
-            <router-link :to="item.href">{{item.text}}</router-link>
-        </div>
+        <el-menu router>
+            <el-menu-item v-for="item in items" :index="item.href">
+                {{item.text}}
+            </el-menu-item>
+        </el-menu>
     </div>
 </template>
 

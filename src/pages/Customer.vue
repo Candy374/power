@@ -3,28 +3,20 @@ About.vue/**
 */
 <template>
     <div class="container">
-        <md-table v-model="searched" md-card
-                  :md-sort.sync="currentSort" :md-sort-order.sync="currentSortOrder" :md-sort-fn="customSort"
+        <div class="title">
+            <el-input v-model="search" class="input-with-select" style="width: 40%">
+                <el-button slot="append" icon="el-icon-search" @click="searchOnTable"></el-button>
+            </el-input>
+        </div>
+        <el-table  :data="searched" v-loading="loading"
+                   :default-sort = "{prop: 'name', order: 'descending'}"
         >
-            <md-table-toolbar>
-                <h1 class="md-title">Customer</h1>
-                <md-field md-clearable class="md-toolbar-section-end">
-                    <md-input placeholder="请输入" v-model="search" @input="searchOnTable"/>
-                </md-field>
-            </md-table-toolbar>
-
-            <div v-if="loading" :class="{loading: loading}">loading...</div>
-            <md-table-row
-                slot="md-table-row" slot-scope="{ item }"
-                md-selectable="multiple" md-auto-select
-            >
-                <md-table-cell md-label="客户名" md-sort-by="name" md-numeric>{{ item.name }}</md-table-cell>
-                <md-table-cell md-label="公司名" md-sort-by="company">{{ item.company }}</md-table-cell>
-                <md-table-cell md-label="地址" md-sort-by="address">{{ item.address }}</md-table-cell>
-                <md-table-cell md-label="联系电话" md-sort-by="mobile">{{ item.mobile }}</md-table-cell>
-                <md-table-cell md-label="关联设备" md-sort-by="machine">{{ item.machine }}</md-table-cell>
-            </md-table-row>
-        </md-table>
+            <el-table-column label="客户名"prop="name"></el-table-column>
+            <el-table-column label="公司名" prop="company"></el-table-column>
+            <el-table-column label="地址" prop="address"></el-table-column>
+            <el-table-column label="联系电话" prop="mobile"></el-table-column>
+            <el-table-column label="关联设备" prop="machine"></el-table-column>
+        </el-table>
     </div>
 </template>
 
@@ -82,11 +74,12 @@ About.vue/**
 </script>
 <style scoped="">
     .container {
-        padding: 30px;
+        margin: 15px 0;
     }
 
-    .loading {
-        padding: 20px;
-        text-align: center;
+    .title {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 15px;
     }
 </style>
