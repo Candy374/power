@@ -3,41 +3,43 @@
 */
 <template>
     <div class="container">
-        <p-table
-            title="机器列表"
-            :loading="loading"
-            :dataSource="rows"
-            :columns="columns"
+        <el-table  :data="rows" v-loading="loading"
         >
-            <template slot="name" slot-scope="scope">
-                <router-link to="/log">{{scope.slotValue}}</router-link>
-            </template>
-            <template slot="code" slot-scope="scope">
-                <router-link to="/machine/code">{{scope.slotValue}}</router-link>
-            </template>
-            <template slot="customer" slot-scope="scope">
-                <router-link to="/customer">{{scope.slotValue}}</router-link>
-            </template>
-        </p-table>
+            <el-table-column prop="name"  label="机器名" width="180">
+                <template slot-scope="scope">
+                    <router-link to="/log">{{scope.row.name}}</router-link>
+                </template>
+            </el-table-column>
+            <el-table-column  prop="code"  label="设备码" width="180">
+                <template slot-scope="scope">
+                    <router-link to="/machine/code">{{scope.row.code}}</router-link>
+                </template>
+            </el-table-column>
+            <el-table-column  prop="customer" label="客户名" >
+                <template slot-scope="scope">
+                    <router-link to="/customer">{{scope.row.customer}}</router-link>
+                </template>
+            </el-table-column>
+            <el-table-column prop="status" label="状态" width="180">
+            </el-table-column>
+            <el-table-column  prop="type"  label="类型"  width="180">
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
-    import PTable from '../../components/Table.vue';
     import Service from '../../actions/index';
 
     export default {
-        components: {
-            PTable
-        },
         data: function () {
             const vm = this;
             return {
                 rows: [],
                 columns: [
-                    {title: '机器名', dataIndex: 'name', slot: true },
-                    {title: '设备码', dataIndex: 'code', slot: true},
-                    {title: '客户名', dataIndex: 'customer', slot: true},
+                    {title: '机器名', dataIndex: 'name'},
+                    {title: '设备码', dataIndex: 'code'},
+                    {title: '客户名', dataIndex: 'customer'},
                     {title: '状态', dataIndex: 'status'},
                     {title: '类型', dataIndex: 'type'},
                 ],
