@@ -42,3 +42,14 @@ export const getMachine = () => mockService([{
     customer: 'Jianghong',
     status: 'ERROR'
 }]);
+
+export const getCode = () => mockService([{
+    code: 'THSOQF',
+    machine: 'XXXX01'
+}, {
+    code: 'THSODFEF',
+    machine: 'XXXX02'
+}, {
+    code: 'TSHSDSD',
+    machine: ''
+}]);

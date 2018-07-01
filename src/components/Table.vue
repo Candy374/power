@@ -5,7 +5,7 @@
     <div class="container">
         <md-table v-model="searched" md-card>
             <md-table-toolbar>
-                <h1 class="md-title">{{title}}</h1>
+                <h1 class="md-title"><slot name="title">{{title}}</slot></h1>
                 <md-field md-clearable class="md-toolbar-section-end">
                     <md-input placeholder="请输入" v-model="search" @input="searchOnTable"/>
                 </md-field>
@@ -85,5 +85,15 @@
     .placeholder {
         padding: 20px;
         text-align: center;
+    }
+
+    .toolbar {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .toolbar .md-field {
+        max-width: 300px;
     }
 </style>

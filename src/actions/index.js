@@ -14,6 +14,9 @@ const Service = mock ? Mock : {
     },
     getMachine: () => {
 
+    },
+    getCode: () => {
+
     }
 };
 
