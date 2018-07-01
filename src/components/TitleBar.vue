@@ -23,7 +23,7 @@
     export default {
         data: () => ({
             toggleCard: false,
-            img: 'src/img/Candy.jpeg',
+            img: './src/img/Candy.jpeg',
             name: 'candy',
             items: [
                 {to: '/machine', text: '设备管理'},
