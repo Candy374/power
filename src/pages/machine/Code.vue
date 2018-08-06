@@ -4,8 +4,8 @@
 <template>
     <div class="container">
         <el-popover
-                ref="popover"
-                placement="right"
+                ref="getCodePopover"
+                placement="bottom"
                 width="400"
                 trigger="click">
             <div>
@@ -13,12 +13,12 @@
                 <el-input-number v-model="number" :min="1"></el-input-number>
                 个机器码
             </div>
-            <div>
+            <div class="tool-buttons">
                 <el-button @click="closePopover">取消</el-button>
                 <el-button type="primary" @click="generateCode">确定</el-button>
             </div>
 
-            <el-button slot="reference">生成机器码</el-button>
+            <el-button slot="reference" style="float: right">生成机器码</el-button>
         </el-popover>
 
         <el-table :data="rows" style="width: 100%" stripe
@@ -32,7 +32,26 @@
                     prop="machine"
                     label="机器名">
                 <template slot-scope="scope">
-                    <router-link to="list">{{scope.row.machine}}</router-link>
+                    <router-link v-if="scope.row.machine" to="list">{{scope.row.machine}}</router-link>
+                    <div v-else>
+                        <el-popover
+                                ref="bindMachinePopover"
+                                width="400"
+                                trigger="click">
+                            请输入机器名
+                            <div>
+                                <el-input v-model="machineCode" ></el-input>
+                            </div>
+                            <div class="tool-buttons">
+                                <el-button @click="closeBindMachinePopover">取消</el-button>
+                                <el-button type="primary" @click="bindMachine"
+                                           :disabled="!machineCode.trim()"
+                                >确定</el-button>
+                            </div>
+
+                            <el-button slot="reference">绑定机器</el-button>
+                        </el-popover>
+                    </div>
                 </template>
             </el-table-column>
         </el-table>
@@ -55,13 +74,13 @@
         data: function () {
             return {
                 number: 0,
-                tooltipActive: false,
                 rows: [],
                 columns: [
                     {title: '设备码', dataIndex: 'code'},
                     {title: '机器名', dataIndex: 'machine' },
                 ],
-                loading: true
+                loading: true,
+                machineCode: ''
             }
         },
         created: function () {
@@ -77,7 +96,6 @@
                 for (let i = 0; i < this.number; i++) {
                     newRows.push({
                         code: getRandomCode(),
-//                        machine: 'XXXX0' + i
                     });
                 }
 
@@ -85,7 +103,14 @@
                 this.closePopover();
             },
             closePopover: function () {
-                this.$refs.popover.doClose()
+                this.$refs.getCodePopover.doClose()
+            },
+            closeBindMachinePopover: function () {
+                this.$refs.bindMachinePopover.doClose()
+            },
+            bindMachine: function () {
+                console.log(`bind Machine ${this.machineCode}`);
+                this.closeBindMachinePopover();
             }
         }
     }
@@ -96,10 +121,17 @@
         flex: 1;
         display: flex;
         flex-direction: column;
+        padding: 20px;
     }
 
     .el-table {
         max-height: 500px;
         overflow: auto;
+    }
+
+    .tool-buttons {
+        margin-top: 20px;
+        display: flex;
+        justify-content: flex-end;
     }
 </style>
