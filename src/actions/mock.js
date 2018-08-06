@@ -35,12 +35,14 @@ export const getMachine = () => mockService([{
     name: 'XXXX01',
     code: 'THSOQF',
     customer: 'Jianghong',
-    status: 'NORMAL'
+    status: 'NORMAL',
+    id: '123',
 }, {
     name: 'XXXX02',
     code: 'THSODFEF',
     customer: 'Jianghong',
-    status: 'ERROR'
+    status: 'ERROR',
+    id: '1231'
 }]);
 
 export const getCode = () => mockService([{

@@ -14,7 +14,7 @@
                 <el-button type="primary" @click="generateCode">确定</el-button>
             </div>
 
-            <el-button slot="reference" style="float: right">生成机器码</el-button>
+            <el-button slot="reference" style="float: right">生成设备码</el-button>
         </el-popover>
 
         <el-table :data="rows"
