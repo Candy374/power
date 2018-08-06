@@ -3,18 +3,14 @@
 */
 <template>
     <div class="container">
-        <el-popover
-                ref="getCodePopover"
-                placement="bottom"
-                width="400"
-                trigger="click">
+        <el-popover width="400" trigger="click" v-model="visible">
             <div>
                 自动生成
                 <el-input-number v-model="number" :min="1"></el-input-number>
                 个机器码
             </div>
             <div class="tool-buttons">
-                <el-button @click="closePopover">取消</el-button>
+                <el-button @click="visible = false">取消</el-button>
                 <el-button type="primary" @click="generateCode">确定</el-button>
             </div>
 
@@ -34,32 +30,25 @@
                 <template slot-scope="scope">
                     <router-link v-if="scope.row.machine" to="list">{{scope.row.machine}}</router-link>
                     <div v-else>
-                        <el-popover
-                                ref="bindMachinePopover"
-                                width="400"
-                                trigger="click">
-                            请输入机器名
-                            <div>
-                                <el-input v-model="machineCode" ></el-input>
-                            </div>
-                            <div class="tool-buttons">
-                                <el-button @click="closeBindMachinePopover">取消</el-button>
-                                <el-button type="primary" @click="bindMachine"
-                                           :disabled="!machineCode.trim()"
-                                >确定</el-button>
-                            </div>
-
-                            <el-button slot="reference">绑定机器</el-button>
-                        </el-popover>
+                        <bind-machine :bindMachine="bindMachine"/>
                     </div>
                 </template>
             </el-table-column>
         </el-table>
+
+        <el-pagination
+                background
+                layout="prev, pager, next"
+                :total="total"
+                v-if="total > 20"
+        >
+        </el-pagination>
     </div>
 </template>
 
 <script>
     import Service from '../../actions/index';
+    import BindMachine from './BindMachine.vue';
 
     const getRandomLetter = () => String.fromCharCode(Math.floor(Math.random() * (120 - 65)) + 65);
     const getRandomCode = () => {
@@ -71,16 +60,20 @@
     };
 
     export default {
+        components: {
+            BindMachine
+        },
         data: function () {
             return {
                 number: 0,
                 rows: [],
+                total: 0,
                 columns: [
                     {title: '设备码', dataIndex: 'code'},
                     {title: '机器名', dataIndex: 'machine' },
                 ],
                 loading: true,
-                machineCode: ''
+                visible: false
             }
         },
         created: function () {
@@ -88,6 +81,7 @@
             Service.getCode().then((data) => {
                 vm.rows = data;
                 vm.loading = false;
+                vm.total = vm.rows.length;
             });
         },
         methods: {
@@ -100,17 +94,10 @@
                 }
 
                 this.rows = this.rows.concat(newRows);
-                this.closePopover();
+                this.visible = false;
             },
-            closePopover: function () {
-                this.$refs.getCodePopover.doClose()
-            },
-            closeBindMachinePopover: function () {
-                this.$refs.bindMachinePopover.doClose()
-            },
-            bindMachine: function () {
-                console.log(`bind Machine ${this.machineCode}`);
-                this.closeBindMachinePopover();
+            bindMachine: function (aaa) {
+                console.log(aaa)
             }
         }
     }
