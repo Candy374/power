@@ -32,7 +32,7 @@
                     prop="machine"
                     label="机器名">
                 <template slot-scope="scope">
-                    <router-link to="/machine/list">{{scope.row.machine}}</router-link>
+                    <router-link to="list">{{scope.row.machine}}</router-link>
                 </template>
             </el-table-column>
         </el-table>
@@ -77,7 +77,7 @@
                 for (let i = 0; i < this.number; i++) {
                     newRows.push({
                         code: getRandomCode(),
-                        machine: 'XXXX0' + i
+//                        machine: 'XXXX0' + i
                     });
                 }
 

@@ -2,9 +2,9 @@
 * Created by huangling on 10/06/2018.
 */
 <template>
-    <el-menu router class="title-bar">
+    <el-menu router class="title-bar" :default-active="defaultActive">
         <div class="left">
-            <el-menu-item v-for="item in items" :index="item.to">
+            <el-menu-item v-for="item in items" :index="item.to" :key="item.id">
                 {{item.text}}
             </el-menu-item>
         </div>
@@ -21,16 +21,26 @@
 
 <script>
     export default {
-        data: () => ({
-            toggleCard: false,
-            img: './src/img/Candy.jpeg',
-            name: 'candy',
-            items: [
+        data: () => {
+            const items = [
                 {to: '/machine', text: '设备管理'},
                 {to: '/customer', text: '客户'},
                 {to: '/log', text: '日志'}
-            ]
-        }),
+            ];
+
+            const hash = location.hash.replace('#', '');
+            const activeItem = items.find(item => hash.indexOf(item.to) > -1);
+
+            return {
+                toggleCard: false,
+                img: './src/img/Candy.jpeg',
+                name: 'candy',
+                items,
+                defaultActive: activeItem ? activeItem.to : ''
+            };
+
+
+        },
         methods: {
             toggle () {
                 this.toggleCard = !this.toggleCard
@@ -73,14 +83,5 @@
         border: 2px solid #fff;
         border-radius: 50%;
         box-shadow: 0 0 3px #000;
-    }
-
-    .link {
-        padding: 0 1em;
-        color: #000;
-    }
-
-    .router-link-active {
-        color: cornflowerblue;
     }
 </style>

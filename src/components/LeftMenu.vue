@@ -3,8 +3,12 @@
 */
 <template>
     <div class="left-menu">
-        <el-menu router>
-            <el-menu-item v-for="item in items" :index="item.href">
+        <el-menu router :default-active="defaultActive">
+            <el-menu-item
+                    v-for="item in items"
+                    :index="item.href"
+                    :key="item.id"
+            >
                 {{item.text}}
             </el-menu-item>
         </el-menu>
@@ -19,6 +23,18 @@
                 required: true
             }
         },
+        data: () => {
+            const defaultActive = location.hash.replace('#', '');
+            return {
+                defaultActive
+            }
+        },
+        watch: {
+            '$route' (to, from) {
+                // 对路由变化作出响应...
+                this.defaultActive = to.path;
+            }
+        }
     }
 </script>
 

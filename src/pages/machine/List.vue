@@ -12,7 +12,7 @@
             </el-table-column>
             <el-table-column  prop="code"  label="设备码" width="180">
                 <template slot-scope="scope">
-                    <router-link to="/machine/code">{{scope.row.code}}</router-link>
+                    <router-link to="code">{{scope.row.code}}</router-link>
                 </template>
             </el-table-column>
             <el-table-column  prop="customer" label="客户名" >
