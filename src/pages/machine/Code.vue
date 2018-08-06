@@ -17,7 +17,10 @@
             <el-button slot="reference" style="float: right">生成机器码</el-button>
         </el-popover>
 
-        <el-table :data="rows" style="width: 100%" stripe
+        <el-table :data="rows"
+                  style="width: 100%"
+                  stripe
+                  height="500"
                   v-loading="loading"
         >
             <el-table-column
@@ -40,7 +43,11 @@
                 background
                 layout="prev, pager, next"
                 :total="total"
-                v-if="total > 20"
+                v-show="total > 20"
+                :current-page="current"
+                @current-change="onPageChange"
+                @prev-click="onPageChange"
+                @next-click="onPageChange"
         >
         </el-pagination>
     </div>
@@ -68,6 +75,7 @@
                 number: 0,
                 rows: [],
                 total: 0,
+                current: 1,
                 columns: [
                     {title: '设备码', dataIndex: 'code'},
                     {title: '机器名', dataIndex: 'machine' },
@@ -94,10 +102,14 @@
                 }
 
                 this.rows = this.rows.concat(newRows);
+                this.total = this.rows.length;
                 this.visible = false;
             },
             bindMachine: function (aaa) {
                 console.log(aaa)
+            },
+            onPageChange: function (current) {
+                this.current = current;
             }
         }
     }
@@ -111,9 +123,10 @@
         padding: 20px;
     }
 
-    .el-table {
-        max-height: 500px;
-        overflow: auto;
+    .el-pagination {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
     }
 
     .tool-buttons {
