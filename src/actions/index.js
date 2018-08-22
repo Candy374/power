@@ -20,6 +20,12 @@ const Service = mock ? Mock : {
     },
     setCode: () => {
 
+    },
+    getTypeList: () => {
+
+    },
+    addType: () => {
+
     }
 };
 

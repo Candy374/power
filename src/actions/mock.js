@@ -76,8 +76,35 @@ const codeList = [{
 
 export const getCode = () => mockService(codeList);
 
-export const setCode = (list) => {
-    list.id = new Date().getTime();
-    codeList.push(list);
+export const setCode = (code) => {
+    code.id = new Date().getTime();
+    codeList.push(code);
+    return mockService();
+};
+
+const typeList = [{
+    id: 'type1',
+    name: 'asf',
+    prefix: 'pp',
+    model: '123',
+    desc: 'testsetstest',
+    createDate: new Date().getTime(),
+    status: 'publish'
+}, {
+    id: 'type2',
+    name: 'asf23',
+    prefix: 'pp2',
+    model: 'xxxx',
+    desc: 'xxx1231',
+    createDate: new Date().getTime(),
+    status: 'draft'
+}];
+
+export const getTypeList = () => mockService(typeList);
+
+export const addType = (type) => {
+    type.id = new Date().getTime();
+    type.createDate = new Date().getTime();
+    typeList.push(type);
     return mockService();
 };

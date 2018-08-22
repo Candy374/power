@@ -3,8 +3,9 @@
 */
 <template>
     <el-dialog
+            @close="onCancel"
             title="生成设备码"
-            visible="true"
+            visible
             width="30%"
     >
         <div>数量</div>
@@ -15,10 +16,10 @@
         <div>设备类型</div>
         <el-select v-model="type" placeholder="请选择类型">
             <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in typeList"
+                    :key="item.id"
+                    :label="item.prefix + item.name"
+                    :value="item.id">
             </el-option>
         </el-select>
 
@@ -30,6 +31,7 @@
 </template>
 
 <script>
+    import Service from '../../actions/index';
     const getRandomLetter = () => String.fromCharCode(Math.floor(Math.random() * (120 - 65)) + 65);
     const getRandomCode = () => {
         let letter = '';
@@ -46,8 +48,14 @@
                 number: 0,
                 name: '',
                 type: '',
-                options: [{label: 'type1', value: 't1'}, {label: 'type2', value: 't2'},{label: 'type3', value: 't3'}]
+                typeList: []
             }
+        },
+        created: function () {
+            const vm = this;
+            Service.getTypeList().then((types) => {
+                vm.typeList = types;
+            })
         },
         methods: {
             generateCode: function () {

@@ -4,7 +4,7 @@
 <template>
     <div class="container">
         <div>
-            <el-button style="float: right" @click="showCreateCodeDialog = true">生成设备码</el-button>
+            <el-button style="float: right" type="primary" @click="showCreateCodeDialog = true">生成设备码</el-button>
         </div>
         <el-table :data="rows"
                   style="width: 100%"
@@ -58,10 +58,6 @@
                 rows: [],
                 total: 0,
                 current: 1,
-                columns: [
-                    {title: '设备码', dataIndex: 'code'},
-                    {title: '机器名', dataIndex: 'machine' },
-                ],
                 loading: true,
                 showCreateCodeDialog: false
             }
@@ -84,8 +80,8 @@
             onCancel: function () {
                 this.showCreateCodeDialog = false
             },
-            onOk: function (list) {
-                Service.setCode(list).then((data) => {
+            onOk: function (code) {
+                Service.setCode(code).then((data) => {
                     this.getCodeList();
                 });
             },
