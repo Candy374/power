@@ -3,38 +3,24 @@
 */
 <template>
     <div class="container">
-        <el-popover width="400" trigger="click" v-model="visible">
-            <div>
-                自动生成
-                <el-input-number v-model="number" :min="1"></el-input-number>
-                个机器码
-            </div>
-            <div class="tool-buttons">
-                <el-button @click="visible = false">取消</el-button>
-                <el-button type="primary" @click="generateCode">确定</el-button>
-            </div>
-
-            <el-button slot="reference" style="float: right">生成设备码</el-button>
-        </el-popover>
-
+        <div>
+            <el-button style="float: right" @click="showCreateCodeDialog = true">生成设备码</el-button>
+        </div>
         <el-table :data="rows"
                   style="width: 100%"
                   stripe
                   height="500"
                   v-loading="loading"
         >
-            <el-table-column
-                    prop="code"
-                    label="设备码" >
-            </el-table-column>
-            <el-table-column
-                    prop="machine"
-                    label="机器名">
+            <el-table-column prop="id" label="批次" ></el-table-column>
+            <el-table-column prop="name" label="批次名称"></el-table-column>
+            <el-table-column prop="num" label="数量"></el-table-column>
+            <el-table-column prop="type" label="类型"></el-table-column>
+            <el-table-column prop="date" label="日期"></el-table-column>
+            <el-table-column prop="creator" label="操作人"></el-table-column>
+            <el-table-column prop="action" label="操作">
                 <template slot-scope="scope">
-                    <router-link v-if="scope.row.machine" to="list">{{scope.row.machine}}</router-link>
-                    <div v-else>
-                        <bind-machine :bindMachine="bindMachine"/>
-                    </div>
+                    <el-button @click="onExport" type="text">导出</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -50,25 +36,21 @@
                 @next-click="onPageChange"
         >
         </el-pagination>
+        <div v-if="showCreateCodeDialog">
+            <code-editor
+                    :onOk="onOk"
+                    :onCancel="onCancel"
+            ></code-editor>
+        </div>
     </div>
 </template>
 
 <script>
     import Service from '../../actions/index';
-    import BindMachine from './BindMachine.vue';
-
-    const getRandomLetter = () => String.fromCharCode(Math.floor(Math.random() * (120 - 65)) + 65);
-    const getRandomCode = () => {
-        let letter = '';
-        for (let i = 0; i< 6; i++) {
-            letter += getRandomLetter();
-        }
-        return letter;
-    };
-
+    import CodeEditor from './CodeEditor.vue';
     export default {
         components: {
-            BindMachine
+            CodeEditor
         },
         data: function () {
             return {
@@ -81,35 +63,34 @@
                     {title: '机器名', dataIndex: 'machine' },
                 ],
                 loading: true,
-                visible: false
+                showCreateCodeDialog: false
             }
         },
         created: function () {
-            const vm = this;
-            Service.getCode().then((data) => {
-                vm.rows = data;
-                vm.loading = false;
-                vm.total = vm.rows.length;
-            });
+            this.getCodeList();
         },
         methods: {
-            generateCode: function () {
-                const newRows = [];
-                for (let i = 0; i < this.number; i++) {
-                    newRows.push({
-                        code: getRandomCode(),
-                    });
-                }
-
-                this.rows = this.rows.concat(newRows);
-                this.total = this.rows.length;
-                this.visible = false;
-            },
-            bindMachine: function (aaa) {
-                console.log(aaa)
+            getCodeList: function () {
+                const vm = this;
+                Service.getCode().then((data) => {
+                    vm.rows = data;
+                    vm.loading = false;
+                    vm.total = vm.rows.length;
+                });
             },
             onPageChange: function (current) {
                 this.current = current;
+            },
+            onCancel: function () {
+                this.showCreateCodeDialog = false
+            },
+            onOk: function (list) {
+                Service.setCode(list).then((data) => {
+                    this.getCodeList();
+                });
+            },
+            onExport: function () {
+                console.log('export')
             }
         }
     }

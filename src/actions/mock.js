@@ -5,7 +5,7 @@ const mockService = (data) => {
     return new Promise(resolve => {
         setTimeout(() => {
             resolve(data)
-        }, 2000);
+        }, 200);
     });
 };
 
@@ -45,13 +45,33 @@ export const getMachine = () => mockService([{
     id: '1231'
 }]);
 
-export const getCode = () => mockService([{
-    code: 'THSOQF',
-    machine: 'XXXX01'
+const codeList = [{
+    id: '1',
+    name: 'test1',
+    num: 100,
+    date: '2018-07-02',
+    type: 'type1',
+    creator: 'JiangHong'
 }, {
-    code: 'THSODFEF',
-    machine: 'XXXX02'
+    id: '2',
+    name: 'test2',
+    num: 150,
+    date: '2018-08-02',
+    type: 'type2',
+    creator: 'JiangHong'
 }, {
-    code: 'TSHSDSD',
-    machine: ''
-}]);
+    id: '3',
+    name: 'test3',
+    num: 50,
+    date: '2018-08-12',
+    type: 'type3',
+    creator: 'JiangHong'
+}];
+
+export const getCode = () => mockService(codeList);
+
+export const setCode = (list) => {
+    list.id = new Date().getTime();
+    codeList.push(list);
+    return mockService();
+};

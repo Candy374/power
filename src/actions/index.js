@@ -17,6 +17,9 @@ const Service = mock ? Mock : {
     },
     getCode: () => {
 
+    },
+    setCode: () => {
+
     }
 };
 
