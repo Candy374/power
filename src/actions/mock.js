@@ -32,17 +32,23 @@ export const getCustomer = () => mockService([{
 }]);
 
 export const getMachine = () => mockService([{
-    name: 'XXXX01',
+    location: '124.23.232.13',
     code: 'THSOQF',
-    customer: 'Jianghong',
+    count: '123',
     status: 'NORMAL',
     id: '123',
+    lastUpdate: new Date().toLocaleString(),
+    registerTime: '218-02-03',
+    type: 't1'
 }, {
-    name: 'XXXX02',
-    code: 'THSODFEF',
-    customer: 'Jianghong',
+    location: '167.13.232.133',
+    code: 'THSOQF',
+    count: '13',
     status: 'ERROR',
-    id: '1231'
+    id: '1233',
+    lastUpdate: new Date().toLocaleString(),
+    registerTime: '218-02-03',
+    type: 't2'
 }]);
 
 const codeList = [{
