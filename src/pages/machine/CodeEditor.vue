@@ -59,21 +59,29 @@
         },
         methods: {
             generateCode: function () {
-                const codeList = [];
-                for (let i = 0; i < this.count; i++) {
-                    codeList.push({
-                        code: getRandomCode(),
-                    });
-                }
+                if (!this.name) {
+                    this.$message.error('请输入批次名称');
+                } else if (!this.count) {
+                    this.$message.error('请输入数量');
+                } else if (!this.deviceType) {
+                    this.$message.error('请选择类型');
+                } else {
+                    const codeList = [];
+                    for (let i = 0; i < this.count; i++) {
+                        codeList.push({
+                            code: getRandomCode(),
+                        });
+                    }
 
-                this.onOk({
-                    name: this.name,
-                    count: this.count,
-                    deviceType: this.deviceType,
-                    codeList: codeList,
-                    date: new Date().toLocaleString(),
-                });
-                this.onCancel();
+                    this.onOk({
+                        name: this.name,
+                        count: this.count,
+                        deviceType: this.deviceType,
+                        codeList: codeList,
+                        date: new Date().toLocaleString(),
+                    });
+                    this.onCancel();
+                }
             },
         }
     }
