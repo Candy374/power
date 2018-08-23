@@ -33,7 +33,9 @@
         },
         methods: {
             onImport: function () {
-                //
+                Service.importType(() => {
+
+                })
             },
             onConfirm: function () {
                 this.onOk({

@@ -9,12 +9,12 @@
             width="30%"
     >
         <div>数量</div>
-        <el-input-number v-model="number" :min="1"></el-input-number>
+        <el-input-number v-model="count" :min="1"></el-input-number>
         <div>批次名称</div>
         <el-input v-model="name"></el-input>
 
         <div>设备类型</div>
-        <el-select v-model="type" placeholder="请选择类型">
+        <el-select v-model="deviceType" placeholder="请选择类型">
             <el-option
                     v-for="item in typeList"
                     :key="item.id"
@@ -25,7 +25,7 @@
 
         <span slot="footer" class="dialog-footer">
                 <el-button @click="onCancel">取消</el-button>
-                <el-button type="primary" @click="generateCode">确定</el-button>
+                <el-button deviceType="primary" @click="generateCode">确定</el-button>
             </span>
     </el-dialog>
 </template>
@@ -45,9 +45,9 @@
         props: ['onOk', 'dialogVisible', 'onCancel'],
         data: function () {
             return {
-                number: 0,
+                count: 0,
                 name: '',
-                type: '',
+                deviceType: '',
                 typeList: []
             }
         },
@@ -60,7 +60,7 @@
         methods: {
             generateCode: function () {
                 const codeList = [];
-                for (let i = 0; i < this.number; i++) {
+                for (let i = 0; i < this.count; i++) {
                     codeList.push({
                         code: getRandomCode(),
                     });
@@ -68,8 +68,8 @@
 
                 this.onOk({
                     name: this.name,
-                    num: this.number,
-                    type: this.type,
+                    count: this.count,
+                    deviceType: this.deviceType,
                     codeList: codeList,
                     date: new Date().toLocaleString(),
                 });

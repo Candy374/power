@@ -51,45 +51,38 @@ export const getMachine = () => mockService([{
     type: 't2'
 }]);
 
-const codeList = [{
-    id: '1',
-    name: 'test1',
-    num: 100,
-    date: '2018-07-02',
-    type: 'type1',
-    creator: 'JiangHong'
-}, {
-    id: '2',
-    name: 'test2',
-    num: 150,
-    date: '2018-08-02',
-    type: 'type2',
-    creator: 'JiangHong'
-}, {
-    id: '3',
-    name: 'test3',
-    num: 50,
-    date: '2018-08-12',
-    type: 'type3',
-    creator: 'JiangHong'
-}];
+const codeObj = {
+    total: 10,
+    rows: [{
+        "id":1,
+        "name": "第一批",
+        "count": 100,
+        "isExport": false, // todo: 需要吗？
+        "dateCreated":"2018-08-22 20:50:56",
+        "deviceType":1,
+        //todo: 创建者
+    }]
+};
 
-export const getCode = () => mockService(codeList);
+export const getCode = () => mockService(codeObj);
 
-export const setCode = (code) => {
-    code.id = new Date().getTime();
+export const addCode = (code) => {
+    const codeList = codeObj.rows;
+    code.id = codeList[codeList.length - 1].id + 1;
+    code.dateCreated = new Date().getTime();
     codeList.push(code);
     return mockService();
 };
 
 const typeList = [{
-    id: 'type1',
-    name: 'asf',
-    prefix: 'pp',
-    model: '123',
-    desc: 'testsetstest',
-    createDate: new Date().getTime(),
-    status: 'publish'
+    "id":1,
+    "name": "name",
+    "description": "姓名",
+    "isPassive": true,
+    "dateCreated":"2018-08-22 20:50:56",
+    "lastUpdated":"2018-08-22 20:50:56",
+    "datePublish":"2018-08-22 20:50:56",
+    "status":0
 }, {
     id: 'type2',
     name: 'asf23',
@@ -107,4 +100,50 @@ export const addType = (type) => {
     type.createDate = new Date().getTime();
     typeList.push(type);
     return mockService();
+};
+
+export const importType = () => {
+    return mockService({
+        "name": "name",
+        "description": "姓名",
+        "isPassive": true,
+        "protocol":[
+            {
+                "name":"实时消息",
+                "label":{0:"A0"},
+                "sendProtocol":"",
+                "receiveProtocol":[],
+                "isUpdate":false
+            }, {
+                "name":"设备参数",
+                "label":{0:"A3"},
+                "sendProtocol":"",
+                "receiveProtocol":[],
+                "isUpdate":true
+            }
+        ]
+    })
+};
+
+export const getMetas = () => {
+    return mockService([
+        {
+            "label": "电压",
+            "name": "voltage",
+            "unit": "v",
+            "chart": "line"
+        }
+    ]);
+};
+export const updateType = () => {
+    return mockService({
+        "id":1,
+        "name": "name",
+        "description": "姓名",
+        "isPassive": true,
+        "dateCreated":"2018-08-22 20:50:56",
+        "lastUpdated":"2018-08-22 20:50:56",
+        "datePublish":"2018-08-22 20:50:56",
+        "status":0          //0为未发布，1为发布
+    });
 };

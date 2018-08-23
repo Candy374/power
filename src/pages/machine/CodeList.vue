@@ -14,9 +14,9 @@
         >
             <el-table-column prop="id" label="批次" ></el-table-column>
             <el-table-column prop="name" label="批次名称"></el-table-column>
-            <el-table-column prop="num" label="数量"></el-table-column>
-            <el-table-column prop="type" label="类型"></el-table-column>
-            <el-table-column prop="date" label="日期"></el-table-column>
+            <el-table-column prop="count" label="数量"></el-table-column>
+            <el-table-column prop="deviceType" label="类型"></el-table-column>
+            <el-table-column prop="dateCreated" label="日期"></el-table-column>
             <el-table-column prop="creator" label="操作人"></el-table-column>
             <el-table-column prop="action" label="操作">
                 <template slot-scope="scope">
@@ -27,7 +27,7 @@
 
         <el-pagination
                 background
-                layout="prev, pager, next"
+                layout="total, prev, pager, next"
                 :total="total"
                 v-show="total > 20"
                 :current-page="current"
@@ -69,7 +69,7 @@
             getCodeList: function () {
                 const vm = this;
                 Service.getCode().then((data) => {
-                    vm.rows = data;
+                    vm.rows = data.rows;
                     vm.loading = false;
                     vm.total = vm.rows.length;
                 });
@@ -81,7 +81,7 @@
                 this.showCreateCodeDialog = false
             },
             onOk: function (code) {
-                Service.setCode(code).then((data) => {
+                Service.addCode(code).then((data) => {
                     this.getCodeList();
                 });
             },
