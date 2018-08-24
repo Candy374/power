@@ -9,8 +9,15 @@
         <el-input v-model="name"></el-input>
 
         <div style="margin-top: 10px;">
-            <el-button @click="onImport">导入格式</el-button>
+            <el-upload ref="upload"
+                       action="/deviceType/upload"
+                       :show-file-list="false"
+                       :on-change="onImport"
+            >
+                <el-button type="primary" size="small">导入格式</el-button>
+            </el-upload>
         </div>
+
 
         <span slot="footer" class="dialog-footer">
                 <el-button @click="onCancel">取消</el-button>
@@ -28,11 +35,13 @@
             return {
                 prefix: 0,
                 name: '',
-                setting: {}
+                fileList: []
             };
         },
         methods: {
-            onImport: function () {
+            onImport: function (files, fileList) {
+                console.log(files);
+                console.log(fileList);
                 Service.importType(() => {
 
                 })
