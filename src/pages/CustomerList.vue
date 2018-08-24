@@ -15,20 +15,24 @@ About.vue/**
                 </el-input>
             </div>
 
-            <el-button style="float: right" type="primary" @click="showAddCustomer = true">新建客户</el-button>
+            <el-button style="float: right" type="primary" @click="newCustomer">新建客户</el-button>
         </div>
         <el-table  :data="rows" v-loading="loading">
             <el-table-column label="客户名" prop="name"></el-table-column>
             <el-table-column label="公司名" prop="company"></el-table-column>
             <el-table-column label="地址" prop="address"></el-table-column>
             <el-table-column label="联系电话" prop="mobile"></el-table-column>
-            <el-table-column prop="action" label="操作">
+            <el-table-column label="关联设备" prop="machine">
                 <template slot-scope="scope">
                     <el-button @click="showMachineList(scope.row.id)" type="text">显示关联设备</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column prop="action" label="操作">
+                <template slot-scope="scope">
+                    <el-button @click="editCustomer(scope.row)" type="text">编辑</el-button>
                     <el-button @click="showResetCode(scope.row.id)" type="text">重置密码</el-button>
                 </template>
             </el-table-column>
-            <el-table-column label="关联设备" prop="machine"></el-table-column>
         </el-table>
 
         <el-dialog title="重置密码" :visible.sync="!!resetPasswordDialog.id">
@@ -42,13 +46,23 @@ About.vue/**
                 <el-button type="primary" @click="resetPassword">确认</el-button>
             </span>
         </el-dialog>
+        <customer-editor
+                :visible="showCustomerDialog"
+                :customer="customer"
+                :onOk="getData"
+                :onCancel="closeCustomerDialog"
+        ></customer-editor>
     </div>
 </template>
 
 <script>
     import Service from '../actions';
 
+    import CustomerEditor from './CustomerEditor.vue';
     export default {
+        components: {
+            CustomerEditor
+        },
         data: () => ({
             rows: [],
             loading: true,
@@ -59,7 +73,9 @@ About.vue/**
             resetPasswordDialog: {
                 id: '',
                 password: '',
-            }
+            },
+            showCustomerDialog: false,
+            customer: {}
         }),
         created: function () {
             this.getData();
@@ -103,6 +119,17 @@ About.vue/**
                         this.$message.error('重置密码失败');
                     }
                 })
+            },
+            newCustomer: function () {
+                this.showCustomerDialog = true;
+                this.customer = {};
+            },
+            editCustomer: function (customer) {
+                this.showCustomerDialog = true;
+                this.customer = customer;
+            },
+            closeCustomerDialog: function () {
+                this.showCustomerDialog = false;
             }
         }
     }
