@@ -83,11 +83,7 @@ About.vue/**
         methods: {
             getData: function () {
                 const vm = this;
-                const filter = {
-                    type: this.filter.type,
-                    query: this.filter.search,
-                };
-                Service.getCustomer(filter).then((data) => {
+                Service.getCustomer(Object.assign({}, this.filter)).then((data) => {
                     vm.rows = data;
                     vm.searched = data;
                     vm.loading = false;
