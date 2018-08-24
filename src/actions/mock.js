@@ -9,15 +9,27 @@ const mockService = (data) => {
     });
 };
 
-export const getLog = () => mockService([{
-    time: '2018-08-09',
-    level: 'ERROR',
-    content: '啦啦啦'
-}, {
-    time: '2018-07-09',
-    level: 'INFO',
-    content: 'eee'
-}]);
+export const getLog = () => mockService({
+    "rows":[
+        {
+            "userId": 1,
+            "operation": "deviceCode.export",
+            "operationInfo": {},
+            "operationData": {},
+            "dateCreated":"2018-08-22 20:50:56"
+        }
+    ]
+});
+
+export const getUser = () => mockService({
+    "id": 1,
+    "name": "管理员",
+    isAdmin: false,
+    "mobile": "18502565886",
+    "email": "348042951@qq.com",
+    "role":"root",
+    "status":1                  //0冻结，1正常
+});
 
 export const getCustomer = () => mockService([{
     id: '1',

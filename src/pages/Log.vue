@@ -39,27 +39,38 @@
                   :default-sort = "{prop: 'time', order: 'descending'}"
                   v-loading="loading"
         >
-            <el-table-column prop="time" label="时间" sortable  width="180">
+            <el-table-column prop="dateCreated" label="时间" sortable  width="200">
                 <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.time }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.dateCreated }}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="level"
-                    label="等级"
+                    prop="operation"
+                    label="操作类型"
                     width="180">
             </el-table-column>
             <el-table-column
-                    prop="content"
+                    prop="operationData"
+                    label="数据"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="operationInfo"
                     label="内容" >
             </el-table-column>
         </el-table>
         <el-pagination
                 background
-                layout="prev, pager, next"
+                layout="total, prev, pager, next"
                 style="float: right"
-                :total="searched.length">
+                v-show="total > 20"
+                :total="total"
+                :current-page="filter.current"
+                @current-change="getData"
+                @prev-click="getData"
+                @next-click="getData"
+        >
         </el-pagination>
     </div>
 </template>
@@ -71,8 +82,11 @@
     export default {
         components: {ElIcon},
         data: () => ({
-            filter: {},
+            filter: {
+                current: 1
+            },
             rows: [],
+            total: 0,
             loading: true,
             showFilter: false
         }),
@@ -83,13 +97,14 @@
             getData: function () {
                 const vm = this;
                 Service.getLog(Object.assign({}, this.filter)).then((data) => {
-                    vm.rows = data;
-                    vm.searched = data;
+                    vm.rows = data.rows;
+                    vm.total = data.total;
+                    vm.filter.current = data.page;
                     vm.loading = false;
                 });
             },
             onClear: function () {
-                this.filter = {};
+                this.filter = {current: 1};
             },
         }
     }

@@ -9,17 +9,33 @@
             </el-menu-item>
         </div>
         <div>
-            <div class="author-card">
-                <div class="author-image"><img :src="img" :alt="name"></div>
-                <div class="author-card-info">
-                    <span>{{ name }}</span>
+            <el-dropdown>
+                <div class="author-card">
+                    <div class="author-image"><img :src="img" :alt="name"></div>
+                    <div class="author-card-info">
+                        <span>{{ name }}</span>
+                    </div>
                 </div>
-            </div>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item v-if="isAdmin">
+                        <el-button @click="userManage" type="text">
+                            用户管理
+                        </el-button>
+                    </el-dropdown-item>
+                    <el-dropdown-item>
+                        <el-button @click="logout" type="text">
+                            退出
+                        </el-button>
+                    </el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
         </div>
     </el-menu>
 </template>
 
 <script>
+    import Service from '../actions';
+
     export default {
         data: () => {
             const items = [
@@ -36,14 +52,22 @@
                 img: './src/img/Candy.jpeg',
                 name: 'candy',
                 items,
-                defaultActive: activeItem ? activeItem.to : ''
+                defaultActive: activeItem ? activeItem.to : '',
+                isAdmin: false
             };
-
-
+        },
+        created: function () {
+            Service.getUser().then((user) => {
+                this.isAdmin = user.isAdmin;
+            });
         },
         methods: {
-            toggle () {
-                this.toggleCard = !this.toggleCard
+            logout () {
+                // TODO: logout
+                Service.logout();
+            },
+            userManage () {
+                this.$router.push('/userManager');
             }
         },
     }

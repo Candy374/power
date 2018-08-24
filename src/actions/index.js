@@ -5,9 +5,19 @@ import axios from 'axios';
 import * as Mock from './mock';
 let mock = true;
 
+let USER;
 const Service = {
+    getUser: () => {
+        if (!USER) {
+            USER = axios.get('/user/current').then((user) => {
+                USER = user;
+                return user;
+            });
+        }
+        return USER;
+    },
     getLog: () => {
-
+        return axios.get('/auditLog')
     },
     getCustomer: () => {
 

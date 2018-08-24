@@ -15,36 +15,42 @@ import Log from './pages/Log.vue';
 import Home from './pages/Home.vue';
 import Main from './layouts/Main.vue';
 import NotFound from './pages/404.vue';
+import Service from './actions';
+
 Vue.use(VueMaterial);
 Vue.use(VueRouter);
 Vue.use(ElementUI);
 
-const router = new VueRouter({
-    routes: [
+const routes = [{
+    path: '/',
+    component: Main,
+    children: [
+        {path: 'log', component: Log},
         {
-            path: '/', component: Main,
+            path: 'machine', component: Machine,
             children: [
-                {path: 'log', component: Log},
-                {
-                    path: 'machine', component: Machine,
-                    children: [
-                        {path: 'list', component: MachineList},
-                        {path: 'code', component: MachineCode},
-                        {path: 'type', component: MachineType},
-                        {path: '',  redirect: 'list'},
-                        {path: '*', redirect: 'list'},
-                    ]
-                },
-                {path: 'customer', component: Customer},
-                {path: '*', component: Home},
+                {path: 'list', component: MachineList},
+                {path: 'code', component: MachineCode},
+                {path: 'type', component: MachineType},
+                {path: '', redirect: 'list'},
+                {path: '*', redirect: 'list'},
             ]
-        }, {
-            path: '*', component: NotFound,
-        }
-    ]
-});
+        },
+        {path: 'customer', component: Customer},
+    ],
+}, {
+    path: '*',
+    component: NotFound,
+}];
 
-const app = new Vue({
-    el: '#app',
-    router,
+Service.getUser().then(user => {
+    if (user.isAdmin) {
+        routes[0].children.push({path: 'userManager', component: Customer});
+    }
+    routes[0].children.push({path: '*', component: Home});
+
+    const app = new Vue({
+        el: '#app',
+        router: new VueRouter({routes}),
+    });
 });
