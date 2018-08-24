@@ -31,6 +31,10 @@ export const getCustomer = () => mockService([{
     name: 'Candy',
 }]);
 
+export const resetPassword = () => mockService({
+    "result":"success"
+});
+
 const machineList = [{
     location: '124.23.232.13',
     code: 'THSOQF',

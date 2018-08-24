@@ -6,7 +6,7 @@ import Vue from 'vue';
 import VueMaterial from 'vue-material';
 import ElementUI from 'element-ui';
 import VueRouter from 'vue-router';
-import Customer from './pages/Customer.vue';
+import Customer from './pages/CustomerList.vue';
 import Machine from './pages/Machine.vue';
 import MachineList from './pages/machine/MachineList.vue';
 import MachineCode from './pages/machine/CodeList.vue';

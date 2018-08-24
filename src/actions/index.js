@@ -12,6 +12,10 @@ const Service = {
     getCustomer: () => {
 
     },
+    resetPassword: (companyId, userId, password) => {
+        // todo: why companyId?
+        return axios.post(`/company/${companyId}/users/${userId}/resetPassword`, { password })
+    },
     getMachineList: () => {
 
     },
