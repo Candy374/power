@@ -64,7 +64,7 @@ const codeObj = {
     }]
 };
 
-export const getCode = () => mockService(codeObj);
+export const getBatchList = () => mockService(codeObj);
 
 export const addCode = (code) => {
     const codeList = codeObj.rows;

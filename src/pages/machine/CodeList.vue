@@ -20,7 +20,8 @@
             <el-table-column prop="creator" label="操作人"></el-table-column>
             <el-table-column prop="action" label="操作">
                 <template slot-scope="scope">
-                    <el-button @click="onExport" type="text">导出</el-button>
+                    <el-button @click="onDetail(scope.row.id)" type="text">显示详情</el-button>
+                    <el-button @click="onExport(scope.row.id)" type="text">导出</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -63,12 +64,12 @@
             }
         },
         created: function () {
-            this.getCodeList();
+            this.getBatchList();
         },
         methods: {
-            getCodeList: function () {
+            getBatchList: function () {
                 const vm = this;
-                Service.getCode().then((data) => {
+                Service.getBatchList().then((data) => {
                     vm.rows = data.rows;
                     vm.loading = false;
                     vm.total = vm.rows.length;
@@ -82,11 +83,15 @@
             },
             onOk: function (code) {
                 Service.addCode(code).then((data) => {
-                    this.getCodeList();
+                    this.getBatchList();
                 });
             },
-            onExport: function () {
-                console.log('export')
+            onExport: function (id) {
+                Service.exportCode(id);
+            },
+            onDetail: function (id) {
+                // todo: show detail ?
+                //Service.getCodeList(id);
             }
         }
     }

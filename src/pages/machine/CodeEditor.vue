@@ -24,9 +24,9 @@
         </el-select>
 
         <span slot="footer" class="dialog-footer">
-                <el-button @click="onCancel">取消</el-button>
-                <el-button deviceType="primary" @click="generateCode">确定</el-button>
-            </span>
+            <el-button @click="onCancel">取消</el-button>
+            <el-button deviceType="primary" @click="generateCode">确定</el-button>
+        </span>
     </el-dialog>
 </template>
 

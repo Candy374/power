@@ -24,11 +24,9 @@
 
     export default {
         data: function () {
-            const vm = this;
             return {
                 rows: [],
                 loading: true,
-                currentMachine: {}
             }
         },
         created: function () {
@@ -38,16 +36,6 @@
                 vm.loading = false;
             });
         },
-        methods: {
-            onEditMachine: function (data) {
-                this.dialogVisible = true;
-                this.currentMachine = Object.assign({}, data);
-            },
-            onCancelCreate: function () {
-                this.dialogVisible = false;
-                this.currentMachine = {};
-            }
-        }
     }
 </script>
 

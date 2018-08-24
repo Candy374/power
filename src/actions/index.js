@@ -5,7 +5,7 @@ import axios from 'axios';
 import * as Mock from './mock';
 let mock = true;
 
-const Service = mock ? Mock : {
+const Service = {
     getLog: () => {
 
     },
@@ -15,11 +15,17 @@ const Service = mock ? Mock : {
     getMachine: () => {
 
     },
-    getCode: () => {
+    getBatchList: () => {
         return axios.get('/codeBatch')
+    },
+    getCodeList: (batchId) => {
+        return axios.get(`/codeBatch/${batchId}/codes`)
     },
     addCode: () => {
         return axios.post('/codeBatch', data)
+    },
+    exportCode: (batchId) => {
+        return axios.get(`/codeBatch/${batchId}/export`)
     },
     getTypeList: () => {
 
@@ -45,5 +51,9 @@ const Service = mock ? Mock : {
         return axios.put(`/deviceType/${id}`)
     }
 };
+
+if (mock) {
+    Object.assign(Service, Mock);
+}
 
 export default Service;

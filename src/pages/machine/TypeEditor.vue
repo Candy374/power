@@ -38,11 +38,17 @@
                 })
             },
             onConfirm: function () {
-                this.onOk({
-                    prefix: this.prefix,
-                    name: this.name,
-                    setting: this.setting
-                })
+                if (!this.prefix) {
+                    this.$message.error('请输入类型前缀');
+                } else if (!this.name) {
+                    this.$message.error('请输入名称');
+                } else {
+                    this.onOk({
+                        prefix: this.prefix,
+                        name: this.name,
+                        setting: this.setting
+                    });
+                }
             }
         }
     }
