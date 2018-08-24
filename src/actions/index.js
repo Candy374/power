@@ -12,8 +12,11 @@ const Service = {
     getCustomer: () => {
 
     },
-    getMachine: () => {
+    getMachineList: () => {
 
+    },
+    getMachineStatus: (id, protocolId) => {
+        return axios.get(`/machine/${id}/${protocolId}/data`)
     },
     getBatchList: () => {
         return axios.get('/codeBatch')

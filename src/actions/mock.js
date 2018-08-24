@@ -31,7 +31,7 @@ export const getCustomer = () => mockService([{
     name: 'Candy',
 }]);
 
-export const getMachine = () => mockService([{
+const machineList = [{
     location: '124.23.232.13',
     code: 'THSOQF',
     count: '123',
@@ -49,7 +49,25 @@ export const getMachine = () => mockService([{
     lastUpdate: new Date().toLocaleString(),
     registerTime: '218-02-03',
     type: 't2'
-}]);
+}];
+
+export const getMachineList = () => mockService(machineList);
+
+export const getMachineStatus = (id) => {
+    return mockService({
+        "rows":[
+            {
+                "voltageA": 255 + id,
+                "voltageB": 255 + id,
+                "voltageC": 255,
+                "intensityA": 255 + id,
+                "intensityB": 255 + id,
+                "intensityC": 255,
+                "dateCreated":"2018-08-22 20:50:56"
+            }
+        ]
+    })
+};
 
 const codeObj = {
     total: 10,
