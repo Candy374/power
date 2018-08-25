@@ -7,6 +7,7 @@ import VueMaterial from 'vue-material';
 import ElementUI from 'element-ui';
 import VueRouter from 'vue-router';
 import Customer from './pages/CustomerList.vue';
+import Settings from './pages/Settings.vue';
 import Machine from './pages/Machine.vue';
 import MachineList from './pages/machine/MachineList.vue';
 import MachineCode from './pages/machine/CodeList.vue';
@@ -45,7 +46,7 @@ const routes = [{
 
 Service.getUser().then(user => {
     if (user.isAdmin) {
-        routes[0].children.push({path: 'userManager', component: Customer});
+        routes[0].children.push({path: 'userManager', component: Settings});
     }
     routes[0].children.push({path: '*', component: Home});
 
