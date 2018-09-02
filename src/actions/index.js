@@ -3,7 +3,8 @@
  */
 import axios from 'axios';
 import * as Mock from './mock';
-let mock = true;
+
+let mock = location.search.indexOf('debug') > -1 || location.host === 'localhost:8080';
 
 let USER;
 const Service = {
