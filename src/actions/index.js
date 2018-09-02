@@ -45,15 +45,16 @@ const Service = {
         return axios.get(`/codeBatch/${batchId}/export`)
     },
     getTypeList: () => {
-
+        return axios.get('/deviceType');
+    },
+    getProtocolListList: () => {
+        return axios.get('/deviceType/protocol');
     },
     addType: (data) => {
-        // {
-        //     "name": "第一批",
-        //     "count": 100,
-        //     "deviceType":1
-        // }
-        return axios.get('/deviceType', data)
+        return axios.post('/deviceType', data)
+    },
+    addProtocolType: (typeId, data) => {
+        return axios.post(`/deviceType/${typeId}/protocol`, data)
     },
     deleteType: (id) => {
         return axios.delete('/deviceType/' + id)

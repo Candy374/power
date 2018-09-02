@@ -12,6 +12,7 @@ import Machine from './pages/Machine.vue';
 import MachineList from './pages/machine/MachineList.vue';
 import MachineCode from './pages/machine/CodeList.vue';
 import MachineType from './pages/machine/TypeList.vue';
+import ProtocolList from './pages/machine/ProtocolList.vue';
 import Log from './pages/Log.vue';
 import Home from './pages/Home.vue';
 import Main from './layouts/Main.vue';
@@ -33,6 +34,7 @@ const routes = [{
                 {path: 'list', component: MachineList},
                 {path: 'code', component: MachineCode},
                 {path: 'type', component: MachineType},
+                {path: 'protocol', component: ProtocolList},
                 {path: '', redirect: 'list'},
                 {path: '*', redirect: 'list'},
             ]

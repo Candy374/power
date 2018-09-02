@@ -24,6 +24,9 @@
             }, {
                 text: '设备类型',
                 href: '/machine/type'
+            }, {
+                text: '协议列表',
+                href: '/machine/protocol'
             }]
         })
     }

@@ -4,7 +4,7 @@
 <template>
     <div class="container">
         <div>
-            <el-button type="primary" style="float: right;" @click="showDialog = true">新建类型</el-button>
+            <el-button type="primary" style="float: right;" @click="showDialog = true">新建协议</el-button>
         </div>
         <el-table :data="rows"
                   style="width: 100%"
@@ -20,27 +20,10 @@
                     {{formatDate(scope.row.createDate)}}
                 </template>
             </el-table-column>
-            <el-table-column prop="status" label="状态">
-                <template slot-scope="scope">
-                    <div v-if="scope.row.status === 'publish'">
-                        已发布
-                    </div>
-                    <div v-else>
-                        草稿
-                    </div>
-                </template>
-            </el-table-column>
             <el-table-column prop="action" label="操作">
                 <template slot-scope="scope">
-                    <span v-if="scope.row.status !== 'publish'">
-                        <el-button type="primary" icon="el-icon-message" circle></el-button>
-                         <el-button type="primary" icon="el-icon-edit" circle></el-button>
-                         <el-button type="danger" icon="el-icon-delete" circle @click="remove(scope.row)"></el-button>
-                        <el-button type="text">发布</el-button>
-                    </span>
-                    <span v-else>
-                        <el-button type="primary" icon="el-icon-message" circle></el-button>
-                    </span>
+                    <el-button type="primary" icon="el-icon-edit" circle></el-button>
+                    <el-button type="danger" icon="el-icon-delete" circle @click="remove(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -57,23 +40,22 @@
         >
         </el-pagination>
         <div v-if="showDialog">
-            <type-editor
-                    :onOk="onCreateType"
+            <protocol-editor
+                    :onOk="onCreateProtocol"
                     :onCancel="onCloseDialog"
-                    :protocolList="protocolList"
-            ></type-editor>
+            ></protocol-editor>
         </div>
     </div>
 </template>
 
 <script>
     import Service from '../../actions/index';
-    import TypeEditor from './TypeEditor.vue';
+    import ProtocolEditor from './ProtocolEditor.vue';
     import moment from 'moment';
 
     export default {
         components: {
-            TypeEditor,
+            ProtocolEditor
         },
         data: function () {
             return {
@@ -87,23 +69,15 @@
             }
         },
         created: function () {
-            this.getTypeList();
             this.getProtocolListList();
         },
         methods: {
-            getTypeList: function () {
-                const vm = this;
-                Service.getTypeList().then((data) => {
-                    vm.rows = data;
-                    vm.loading = false;
-                    vm.total = vm.rows.length;
-                });
-            },
             getProtocolListList: function () {
                 const vm = this;
                 Service.getProtocolListList().then((data) => {
-                    vm.protocolList = data;
+                    vm.rows = data;
                     vm.loading = false;
+                    vm.total = vm.rows.length;
                 });
             },
             onPageChange: function (current) {
@@ -111,14 +85,19 @@
             },
             onCreateType: function (list) {
                 Service.addType(list).then((data) => {
-                    this.getTypeList();
+                    this.getProtocolListList();
+                });
+            },
+            onCreateProtocol: function (list) {
+                Service.addType(list).then((data) => {
+                    this.getProtocolListList();
                 });
             },
             onExport: function () {
                 console.log('export')
             },
             remove: function (row) {
-                Service.deleteType(row.id);
+                Service.deleteProtocolType(row.id);
             },
             formatDate: function (date) {
                 return moment(date).format('YYYY-MM-DD HH:mm:ss');

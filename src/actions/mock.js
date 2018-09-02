@@ -128,6 +128,7 @@ const typeList = [{
 }];
 
 export const getTypeList = () => mockService(typeList);
+export const getProtocolListList = () => mockService(typeList);
 
 export const addType = (type) => {
     type.id = new Date().getTime();
