@@ -39,7 +39,7 @@
                     <span v-if="scope.row.status !== 'publish'">
                         <el-button type="primary" icon="el-icon-message" circle></el-button>
                          <el-button type="primary" icon="el-icon-edit" circle></el-button>
-                         <el-button type="danger" icon="el-icon-delete" circle></el-button>
+                         <el-button type="danger" icon="el-icon-delete" circle @click="remove(scope.row)"></el-button>
                         <el-button type="text">发布</el-button>
                     </span>
                     <span v-else>
@@ -117,6 +117,9 @@
             },
             formatDate: function (date) {
                 return moment(date).format('YYYY-MM-DD HH:mm:ss');
+            },
+            remove: function (row) {
+                Service.deleteType(row.id);
             }
         }
     }

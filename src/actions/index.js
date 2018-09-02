@@ -55,6 +55,12 @@ const Service = {
         // }
         return axios.get('/deviceType', data)
     },
+    deleteType: (id) => {
+        return axios.delete('/deviceType/' + id)
+    },
+    publishType: (id) => {
+        return axios.post('/deviceType/' + id + '/publish')
+    },
     importType: (data) => {
         return axios.post('/deviceType/upload', data)
     },

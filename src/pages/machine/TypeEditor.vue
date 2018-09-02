@@ -3,10 +3,10 @@
 */
 <template>
     <el-dialog title="新建类型" visible width="30%">
-        <div>前缀</div>
-        <el-input v-model="prefix"></el-input>
-        <div style="margin-top: 10px">名称</div>
+        <div>名称</div>
         <el-input v-model="name"></el-input>
+        <div style="margin-top: 10px">描述</div>
+        <el-input v-model="description"></el-input>
 
         <div style="margin-top: 10px;">
             <el-upload ref="upload"
@@ -33,7 +33,7 @@
         props: ['onOk', 'dialogVisible', 'onCancel'],
         data: function () {
             return {
-                prefix: 0,
+                description: '',
                 name: '',
                 fileList: []
             };
@@ -53,9 +53,9 @@
                     this.$message.error('请输入名称');
                 } else {
                     this.onOk({
-                        prefix: this.prefix,
+                        description: this.description,
                         name: this.name,
-                        setting: this.setting
+                        protocol: this.protocol
                     });
                 }
             }
